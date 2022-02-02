@@ -1,0 +1,7 @@
+$theme-colors: (
+  "info": pink,
+  "danger": teal,
+  "primary": rgb(105, 170, 19),
+);
+
+@import "../node_modules/bootstrap/scss/bootstrap";
