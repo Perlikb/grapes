@@ -18,7 +18,7 @@ function App() {
   const [wine, setWine] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5000/tables")
+    fetch("http://localhost:5000/api/tables")
       .then((response) => response.text())
       .then((data) => console.log(data));
   }, []);
@@ -33,7 +33,7 @@ function App() {
     };
     //Post request sent, after that textareas reset to placeholders
     if (formData) {
-      fetch("http://localhost:5000/insert", requestOptions)
+      fetch("http://localhost:5000/api/insert", requestOptions)
         .then((response) => response.text())
         .then((data) => {
           setName("");
