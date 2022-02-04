@@ -5,3 +5,7 @@ $theme-colors: (
 );
 
 @import "../node_modules/bootstrap/scss/bootstrap";
+
+.content {
+  height: 100vh;
+}
