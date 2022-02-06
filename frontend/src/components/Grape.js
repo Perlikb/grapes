@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Button, Form, Container } from "react-bootstrap";
 
 const Grape = ({ el }) => {
+  const [show, setShow] = useState(true);
   const [formData, setFormData] = useState(el);
   const [name, setName] = useState(el.name);
   const [color, setColor] = useState(el.color);
@@ -30,6 +31,7 @@ const Grape = ({ el }) => {
       .then((response) => response.text())
       .then(() => {
         console.log("deleted");
+        setShow(false);
       });
   };
 
@@ -51,7 +53,7 @@ const Grape = ({ el }) => {
 
   return (
     <div>
-      <Container>
+      <Container style={{ display: show ? "block" : "none" }}>
         <Form>
           <Form.Group md={4}>
             <Form.Label>NAME</Form.Label>
