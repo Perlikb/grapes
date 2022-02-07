@@ -5,6 +5,7 @@ import Nav from "./components/Nav";
 import Home from "./pages/Home";
 import FormPage from "./pages/FormPage";
 import Inventory from "./pages/Inventory";
+import GrapesTable from "./pages/GrapesTable";
 import Error from "./pages/Error";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/form" element={<FormPage />} />
           <Route exact path="/inventory" element={<Inventory />} />
+          <Route exact path="/grapestable" element={<GrapesTable />} />
           <Route path="*" element={<Error />} />
         </Routes>
       </Router>

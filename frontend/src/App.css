@@ -11335,4 +11335,8 @@ fieldset:disabled .btn {
 .content {
   height: 100vh;
 }
+
+.navLink {
+  margin: 50px;
+}
 /*# sourceMappingURL=App.css.map */

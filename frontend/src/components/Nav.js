@@ -14,6 +14,9 @@ const Nav = () => {
       <Link to="/inventory" className="navLink">
         Inventory
       </Link>
+      <Link to="/grapestable" className="navLink">
+        GrapesTable
+      </Link>
     </div>
   );
 };
