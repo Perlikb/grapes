@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Form, Container } from "react-bootstrap";
+import { Button, Form, Container, Modal } from "react-bootstrap";
 
 const EditRow = ({ editForm, handleChange, handleGrapeUpdate }) => {
   let { id, name, color, wine } = editForm;
