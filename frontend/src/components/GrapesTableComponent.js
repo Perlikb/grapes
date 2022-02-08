@@ -4,7 +4,7 @@ import { Button, Form, Container, Table } from "react-bootstrap";
 import EditRow from "./EditRow";
 import "../App.css";
 
-const GrapesTableComponent = ({ data, onUpdateRow }) => {
+const GrapesTableComponent = ({ data, setData }) => {
   const [isEdited, setIsEdited] = useState(false);
   const [editForm, setEditForm] = useState({
     id: "",
@@ -12,14 +12,18 @@ const GrapesTableComponent = ({ data, onUpdateRow }) => {
     color: "",
     wine: "",
   });
-  //Could be simplified????
-  function changeEditState(grape) {
-    if (grape.id === editForm.id) {
-      setIsEdited((isEdited) => !isEdited); // hides the form
-    } else if (isEdited === false) {
-      setIsEdited((isEdited) => !isEdited); // shows the form
-    }
-  }
+
+  const onUpdateRow = (upDatedRow) => {
+    const upDatedRows = data.map((grapeRow) => {
+      if (grapeRow.id == upDatedRow.id) {
+        console.log("updated:", upDatedRow);
+        return upDatedRow;
+      } else {
+        return grapeRow;
+      }
+    });
+    setData(upDatedRows);
+  };
 
   function captureEdit(clickedGrape) {
     let filtered = data.filter((grape) => grape.id === clickedGrape.id);
@@ -40,13 +44,14 @@ const GrapesTableComponent = ({ data, onUpdateRow }) => {
 
   return (
     <div>
-      {isEdited && (
-        <EditRow
-          editForm={editForm}
-          handleChange={handleChange}
-          handleGrapeUpdate={handleGrapeUpdate}
-        />
-      )}
+      <EditRow
+        editForm={editForm}
+        handleChange={handleChange}
+        handleGrapeUpdate={handleGrapeUpdate}
+        setIsEdited={setIsEdited}
+        isEdited={isEdited}
+      />
+
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -64,7 +69,7 @@ const GrapesTableComponent = ({ data, onUpdateRow }) => {
                 key={el.id}
                 el={el}
                 captureEdit={captureEdit}
-                changeEditState={changeEditState}
+                setIsEdited={setIsEdited}
               />
             ))}
         </tbody>

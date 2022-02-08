@@ -1,7 +1,13 @@
 import React from "react";
 import { Button, Form, Container, Modal } from "react-bootstrap";
 
-const EditRow = ({ editForm, handleChange, handleGrapeUpdate }) => {
+const EditRow = ({
+  editForm,
+  handleChange,
+  handleGrapeUpdate,
+  setIsEdited,
+  isEdited,
+}) => {
   let { id, name, color, wine } = editForm;
   const handlePatch = (e) => {
     e.preventDefault();
@@ -25,8 +31,10 @@ const EditRow = ({ editForm, handleChange, handleGrapeUpdate }) => {
   };
 
   return (
-    <div>
-      <h1>Editing row</h1>
+    <Modal show={isEdited}>
+      <Modal.Header>
+        <Modal.Title>Editing row</Modal.Title>
+      </Modal.Header>
       <Form onSubmit={handlePatch}>
         <Form.Group>
           <Form.Label>NAME</Form.Label>
@@ -59,7 +67,12 @@ const EditRow = ({ editForm, handleChange, handleGrapeUpdate }) => {
           CHANGE ROW
         </Button>
       </Form>
-    </div>
+      <Modal.Footer>
+        <Button variant="danger" onClick={() => setIsEdited(false)}>
+          CLOSE WITHOUT CHANGES
+        </Button>
+      </Modal.Footer>
+    </Modal>
   );
 };
 

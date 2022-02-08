@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import "../App.css";
 import { Button, Form, Container, Table } from "react-bootstrap";
 
-const GrapesTableRow = ({ el, captureEdit, changeEditState }) => {
+const GrapesTableRow = ({ el, captureEdit, setIsEdited }) => {
   const [show, setShow] = useState(true);
 
   const editCustomer = () => {
     captureEdit(el);
-    changeEditState(el);
+    setIsEdited(true);
   };
 
   const handleDelete = () => {
