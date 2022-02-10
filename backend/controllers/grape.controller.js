@@ -26,7 +26,13 @@ exports.create = (req, res) => {
 };
 
 exports.listAll = (req, res) => {
-  Grape.list((err, data) => {
+  let page = 0;
+  if (req.query.page) {
+    req.query.page = parseInt(req.query.page);
+    page = Number.isInteger(req.query.page) ? req.query.page : 0;
+  }
+
+  Grape.list(page, 5, (err, data) => {
     if (err)
       res.status(500).send({
         message: err.message || "Error while retrieving grapelist.",

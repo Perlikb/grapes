@@ -14,20 +14,22 @@ Grape.create = (grape, result) => {
       result(err, null);
       return;
     }
-    console.log("created grape: ", { id: res.insertId, ...grape });
+    // console.log("created grape: ", { id: res.insertId, ...grape });
     result(null, { id: res.insertId, ...grape });
   });
 };
 
-Grape.list = (result) => {
-  let myLine = "SELECT * FROM grape_types";
+Grape.list = (page, numPerPage, result) => {
+  let myLine = `SELECT * FROM grape_types ORDER BY id ASC LIMIT ${numPerPage} OFFSET ${
+    page * numPerPage
+  }`;
   sql.query(myLine, (err, res) => {
     if (err) {
       console.log("error", err);
       result(null, err);
       return;
     }
-    console.log("grapes:", res);
+    // console.log("grapes:", res);
     result(null, res);
   });
 };
