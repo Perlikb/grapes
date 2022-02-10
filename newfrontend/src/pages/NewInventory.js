@@ -3,8 +3,14 @@ import { Button, Form, Container, Table } from "react-bootstrap";
 import TableRow from "../components/TableRow";
 import EditableRow from "../components/EditableRow";
 import ReactPaginate from "react-paginate";
+import { HiSortAscending, HiSortDescending } from "react-icons/hi";
 
 const NewInventory = () => {
+  const [sortConfig, setSortConfig] = useState({
+    key: "id",
+    field: "ascending",
+  });
+  let sortedData = [];
   const [pageCounter, setPageCounter] = useState(0);
   const [data, setData] = useState([]);
   const [show, setShow] = useState(false);
@@ -16,6 +22,25 @@ const NewInventory = () => {
     wine: "",
   });
 
+  if (sortConfig.key !== null) {
+    data.sort((a, b) => {
+      if (a[sortConfig.key] < b[sortConfig.key]) {
+        return sortConfig.direction === "ascending" ? -1 : 1;
+      }
+      if (a[sortConfig.key] > b[sortConfig.key]) {
+        return sortConfig.direction === "ascending" ? 1 : -1;
+      }
+      return 0;
+    });
+  }
+
+  const requestSort = (key) => {
+    let direction = "ascending";
+    if (sortConfig.key === key && sortConfig.direction === "ascending") {
+      direction = "descending";
+    }
+    setSortConfig({ key, direction });
+  };
   const handlePageClick = (click) => {
     console.log(click);
     setPageCounter(click.selected);
@@ -86,10 +111,50 @@ const NewInventory = () => {
         <Table bordered striped hover responsive>
           <thead>
             <tr>
-              <th>#</th>
-              <th>NAME</th>
-              <th>COLOR</th>
-              <th>WINE</th>
+              <th>
+                <button type="button" onClick={() => requestSort("id")}>
+                  #{" "}
+                  {sortConfig.key === "id" &&
+                    (sortConfig.direction === "ascending" ? (
+                      <HiSortDescending />
+                    ) : (
+                      <HiSortAscending />
+                    ))}
+                </button>{" "}
+              </th>
+              <th>
+                <button type="button" onClick={() => requestSort("name")}>
+                  NAME{" "}
+                  {sortConfig.key === "name" &&
+                    (sortConfig.direction === "ascending" ? (
+                      <HiSortDescending />
+                    ) : (
+                      <HiSortAscending />
+                    ))}
+                </button>{" "}
+              </th>
+              <th>
+                <button type="button" onClick={() => requestSort("color")}>
+                  COLOR{" "}
+                  {sortConfig.key === "color" &&
+                    (sortConfig.direction === "ascending" ? (
+                      <HiSortDescending />
+                    ) : (
+                      <HiSortAscending />
+                    ))}
+                </button>{" "}
+              </th>
+              <th>
+                <button type="button" onClick={() => requestSort("wine")}>
+                  WINE{" "}
+                  {sortConfig.key === "wine" &&
+                    (sortConfig.direction === "ascending" ? (
+                      <HiSortDescending />
+                    ) : (
+                      <HiSortAscending />
+                    ))}
+                </button>{" "}
+              </th>
               <th>EDIT ROW</th>
             </tr>
           </thead>
