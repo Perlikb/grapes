@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Nav className="navbar navbar-expand-lg" />
+        <Nav />
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/form" element={<FormPage />} />

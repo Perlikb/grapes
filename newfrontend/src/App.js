@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React from "react";
-import Nav from "./components/Nav";
+import NavComponent from "./components/NavComponent";
 import Home from "./pages/Home";
 import FormPage from "./pages/FormPage";
 import NewInventory from "./pages/NewInventory";
@@ -11,7 +11,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Nav className="navbar navbar-expand-lg" />
+        <NavComponent />
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/form" element={<FormPage />} />

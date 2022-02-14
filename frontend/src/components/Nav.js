@@ -1,23 +1,24 @@
 import React from "react";
-import "../App.css";
+//import "../App.css";
 import { Link } from "react-router-dom";
+import { Navbar, Button, Form, Col, Row } from "react-bootstrap";
 
 const Nav = () => {
   return (
-    <div>
-      <Link to="/" className="navLink">
+    <Navbar bg="primary" variant="dark">
+      <Nav.Link as={Link} to="/" className="navLink">
         Home
-      </Link>
-      <Link to="/form" className="navLink">
+      </Nav.Link>
+      <Nav.Link as={Link} to="/form" className="navLink">
         Form
-      </Link>
-      <Link to="/inventory" className="navLink">
+      </Nav.Link>
+      <Nav.Link as={Link} to="/inventory" className="navLink">
         Inventory
-      </Link>
-      <Link to="/grapestable" className="navLink">
+      </Nav.Link>
+      <Nav.Link as={Link} to="/grapestable" className="navLink">
         GrapesTable
-      </Link>
-    </div>
+      </Nav.Link>
+    </Navbar>
   );
 };
 

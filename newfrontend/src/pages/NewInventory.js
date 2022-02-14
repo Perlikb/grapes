@@ -1,7 +1,8 @@
 import React, { useState, useEffect, Fragment } from "react";
-import { Button, Form, Container, Table } from "react-bootstrap";
+import { Row, Form, Container, Table } from "react-bootstrap";
 import TableRow from "../components/TableRow";
 import EditableRow from "../components/EditableRow";
+import SearchComponent from "../components/SearchComponent";
 import ReactPaginate from "react-paginate";
 import { HiSortAscending, HiSortDescending } from "react-icons/hi";
 
@@ -121,26 +122,14 @@ const NewInventory = () => {
   };
 
   return (
-    <div>
-      <Form onSubmit={handleSubmit}>
-        <Form.Select
-          aria-label="Default select example"
-          onChange={(e) => setSelect(e.target.value)}
-        >
-          <option>Open this select menu</option>
-          <option value="name">NAME</option>
-          <option value="color">COLOR</option>
-          <option value="wine">WINE</option>
-        </Form.Select>
-        <Form.Control
-          type="text"
-          placeholder="SEARCH"
-          onChange={(e) => setSearch(e.target.value)}
+    <Container>
+      <Row>
+        <SearchComponent
+          handleSubmit={handleSubmit}
+          setSelect={setSelect}
+          setSearch={setSearch}
         />
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
-      </Form>
+      </Row>
       <Form>
         <h1>NEW INVENTORY</h1>
         <Table bordered striped hover responsive>
@@ -237,7 +226,7 @@ const NewInventory = () => {
           activeClassName={"active"}
         />
       )}
-    </div>
+    </Container>
   );
 };
 
