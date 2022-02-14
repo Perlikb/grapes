@@ -6,11 +6,16 @@ import ReactPaginate from "react-paginate";
 import { HiSortAscending, HiSortDescending } from "react-icons/hi";
 
 const NewInventory = () => {
+  const [pageCountNeeded, setPageCountNeeded] = useState(true);
+  const [select, setSelect] = useState();
+  const [search, setSearch] = useState();
+  const [searchUrl, setSearchUrl] = useState();
+  const [pageTotal, setPageTotal] = useState(0);
   const [sortConfig, setSortConfig] = useState({
     key: "id",
     field: "ascending",
   });
-  let sortedData = [];
+
   const [pageCounter, setPageCounter] = useState(0);
   const [data, setData] = useState([]);
   const [show, setShow] = useState(false);
@@ -46,18 +51,29 @@ const NewInventory = () => {
     setPageCounter(click.selected);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let myLine = select + "=" + search;
+    console.log(myLine);
+    setSearchUrl(myLine);
+  };
+
   const fetchData = () => {
-    fetch(`http://localhost:5000/api/listgrapes/?page=${pageCounter}`)
+    fetch(
+      `http://localhost:5000/api/listgrapes?page=${pageCounter}&${searchUrl}`
+    )
       .then((response) => response.json())
       .then((newdata) => {
         setData(newdata);
-        console.log("fetched new data");
+        if (!newdata[0].full_count) setPageCountNeeded(false);
+        else setPageTotal(newdata[0].full_count);
+        console.log("fetched new data", newdata);
       });
   };
 
   useEffect(() => {
     fetchData();
-  }, [pageCounter]);
+  }, [pageCounter, searchUrl]);
 
   const onUpdateRow = (upDatedRow) => {
     const upDatedRows = data.map((grapeRow) => {
@@ -106,6 +122,25 @@ const NewInventory = () => {
 
   return (
     <div>
+      <Form onSubmit={handleSubmit}>
+        <Form.Select
+          aria-label="Default select example"
+          onChange={(e) => setSelect(e.target.value)}
+        >
+          <option>Open this select menu</option>
+          <option value="name">NAME</option>
+          <option value="color">COLOR</option>
+          <option value="wine">WINE</option>
+        </Form.Select>
+        <Form.Control
+          type="text"
+          placeholder="SEARCH"
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+      </Form>
       <Form>
         <h1>NEW INVENTORY</h1>
         <Table bordered striped hover responsive>
@@ -181,25 +216,27 @@ const NewInventory = () => {
           </tbody>
         </Table>
       </Form>
-      <ReactPaginate
-        previousLabel={"previous"}
-        nextLabel={"next"}
-        breakLabel={"..."}
-        pageCount={6}
-        marginPagesDisplayed={1}
-        pageRangeDisplayed={0}
-        onPageChange={handlePageClick}
-        containerClassName={"pagination justify-content-center"}
-        pageClassName={"page-item"}
-        pageLinkClassName={"page-link"}
-        previousClassName={"page-item"}
-        previousLinkClassName={"page-link"}
-        nextClassName={"page-item"}
-        nextLinkClassName={"page-link"}
-        breakClassName={"page-item"}
-        breakLinkClassName={"page-link"}
-        activeClassName={"active"}
-      />
+      {pageCountNeeded && (
+        <ReactPaginate
+          previousLabel={"previous"}
+          nextLabel={"next"}
+          breakLabel={"..."}
+          pageCount={Math.ceil(pageTotal / 5)}
+          marginPagesDisplayed={1}
+          pageRangeDisplayed={0}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination justify-content-center"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          activeClassName={"active"}
+        />
+      )}
     </div>
   );
 };

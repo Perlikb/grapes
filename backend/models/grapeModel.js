@@ -19,23 +19,59 @@ Grape.create = (grape, result) => {
   });
 };
 
-Grape.list = (page, numPerPage, result) => {
-  let myLine = `SELECT * FROM grape_types ORDER BY id ASC LIMIT ${numPerPage} OFFSET ${
-    page * numPerPage
-  }`;
-  sql.query(myLine, (err, res) => {
-    if (err) {
-      console.log("error", err);
-      result(null, err);
-      return;
-    }
-    // console.log("grapes:", res);
-    result(null, res);
-  });
+Grape.list = (name, color, wine, page, numPerPage, result) => {
+  let myLine;
+  if (name) {
+    myLine = `SELECT * FROM  grape_types WHERE name REGEXP ?`;
+    sql.query(myLine, [name], (err, res) => {
+      if (err) {
+        console.log("error", err);
+        result(null, err);
+        return;
+      }
+      // console.log(res);
+      result(null, res);
+    });
+  } else if (color) {
+    console.log(color);
+    myLine = `SELECT * FROM  grape_types WHERE color REGEXP ?`;
+    sql.query(myLine, [color], (err, res) => {
+      if (err) {
+        console.log("error", err);
+        result(null, err);
+        return;
+      }
+      // console.log(res);
+      result(null, res);
+    });
+  } else if (wine) {
+    myLine = `SELECT * FROM  grape_types WHERE wine REGEXP ?`;
+    sql.query(myLine, [wine], (err, res) => {
+      if (err) {
+        console.log("error", err);
+        result(null, err);
+        return;
+      }
+      // console.log(res);
+      result(null, res);
+    });
+  } else {
+    myLine = `SELECT * , count(*) OVER() AS full_count FROM grape_types ORDER BY id ASC LIMIT ? OFFSET ?`;
+    console.log(myLine);
+    sql.query(myLine, [numPerPage, page * numPerPage], (err, res) => {
+      if (err) {
+        console.log("error", err);
+        result(null, err);
+        return;
+      }
+      // console.log(res);
+      result(null, res);
+    });
+  }
 };
 
 Grape.findById = (id, result) => {
-  sql.query(`SELECT * FROM grape_types WHERE id = ${id}`, (err, res) => {
+  sql.query(`SELECT * FROM grape_types WHERE id = ?`, [id], (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -52,7 +88,7 @@ Grape.findById = (id, result) => {
 };
 
 Grape.remove = (id, result) => {
-  sql.query(`DELETE FROM grape_types WHERE id = ${id}`, (err, res) => {
+  sql.query(`DELETE FROM grape_types WHERE id = ?`, [id], (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);

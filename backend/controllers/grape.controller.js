@@ -26,18 +26,32 @@ exports.create = (req, res) => {
 };
 
 exports.listAll = (req, res) => {
+  console.log(req.query);
   let page = 0;
+  let name = null;
+  let color = null;
+  let wine = null;
+  if (req.query.name) name = req.query.name;
+  if (req.query.color) {
+    console.log(req.query);
+    color = req.query.color;
+  }
+  if (req.query.wine) wine = req.query.wine;
+
   if (req.query.page) {
     req.query.page = parseInt(req.query.page);
     page = Number.isInteger(req.query.page) ? req.query.page : 0;
   }
 
-  Grape.list(page, 5, (err, data) => {
+  Grape.list(name, color, wine, page, 5, (err, data) => {
     if (err)
       res.status(500).send({
         message: err.message || "Error while retrieving grapelist.",
       });
-    else res.send(data);
+    else {
+      // console.log(data);
+      res.send(data);
+    }
   });
 };
 
