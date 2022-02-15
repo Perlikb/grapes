@@ -4,6 +4,10 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import cellEditFactory, { Type } from "react-bootstrap-table2-editor";
 import "../App.css";
 
+//This page is not in use
+//First idea on how to implement task using "react-bootstrap-table-next" && "react-bootstrap-table2"
+//"react-bootstrap-table2-editor" => no declaration file issue, couldn't solve it, tried other direction
+
 const Inventory = () => {
   const [data, setData] = useState([]);
   const fetchData = () => {
@@ -17,7 +21,7 @@ const Inventory = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
+  //"react-bootstrap-table-next"-specific
   const columns = [
     {
       dataField: "id",

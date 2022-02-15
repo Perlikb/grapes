@@ -16,7 +16,10 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route exact path="/form" element={<FormPage />} />
           <Route exact path="/newinventory" element={<NewInventory />} />
-          {/* <Route exact path="/inventory" element={<Inventory />} />*/}
+          {
+            //First idea on how to implement task using "react-bootstrap-table-next" && "react-bootstrap-table2"
+            /* <Route exact path="/inventory" element={<Inventory />} />*/
+          }
 
           <Route path="*" element={<Error />} />
         </Routes>

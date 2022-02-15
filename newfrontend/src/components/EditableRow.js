@@ -61,8 +61,20 @@ const EditableRow = ({ editForm, handleGrapeUpdate, setIsEditedId }) => {
       </td>
       <td>
         {" "}
-        <Button onClick={handlePatch}>SAVE CHANGES</Button>
-        <Button onClick={() => setIsEditedId(null)}>CANCEL</Button>
+        <Button
+          size="sm"
+          style={{ width: "80px", marginRight: "3px" }}
+          onClick={handlePatch}
+        >
+          SAVE
+        </Button>
+        <Button
+          size="sm"
+          style={{ width: "80px", marginRight: "3px" }}
+          onClick={() => setIsEditedId(null)}
+        >
+          CANCEL
+        </Button>
       </td>
     </tr>
   );

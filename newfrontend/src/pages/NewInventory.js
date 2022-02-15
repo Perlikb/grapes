@@ -3,8 +3,8 @@ import { Row, Form, Container, Table } from "react-bootstrap";
 import TableRow from "../components/TableRow";
 import EditableRow from "../components/EditableRow";
 import SearchComponent from "../components/SearchComponent";
+import THeadComponent from "../components/THeadComponent";
 import ReactPaginate from "react-paginate";
-import { HiSortAscending, HiSortDescending } from "react-icons/hi";
 
 const NewInventory = () => {
   const [pageCountNeeded, setPageCountNeeded] = useState(true);
@@ -133,55 +133,8 @@ const NewInventory = () => {
       <Form>
         <h1>NEW INVENTORY</h1>
         <Table bordered striped hover responsive>
-          <thead>
-            <tr>
-              <th>
-                <button type="button" onClick={() => requestSort("id")}>
-                  #{" "}
-                  {sortConfig.key === "id" &&
-                    (sortConfig.direction === "ascending" ? (
-                      <HiSortDescending />
-                    ) : (
-                      <HiSortAscending />
-                    ))}
-                </button>{" "}
-              </th>
-              <th>
-                <button type="button" onClick={() => requestSort("name")}>
-                  NAME{" "}
-                  {sortConfig.key === "name" &&
-                    (sortConfig.direction === "ascending" ? (
-                      <HiSortDescending />
-                    ) : (
-                      <HiSortAscending />
-                    ))}
-                </button>{" "}
-              </th>
-              <th>
-                <button type="button" onClick={() => requestSort("color")}>
-                  COLOR{" "}
-                  {sortConfig.key === "color" &&
-                    (sortConfig.direction === "ascending" ? (
-                      <HiSortDescending />
-                    ) : (
-                      <HiSortAscending />
-                    ))}
-                </button>{" "}
-              </th>
-              <th>
-                <button type="button" onClick={() => requestSort("wine")}>
-                  WINE{" "}
-                  {sortConfig.key === "wine" &&
-                    (sortConfig.direction === "ascending" ? (
-                      <HiSortDescending />
-                    ) : (
-                      <HiSortAscending />
-                    ))}
-                </button>{" "}
-              </th>
-              <th>EDIT ROW</th>
-            </tr>
-          </thead>
+          <THeadComponent requestSort={requestSort} sortConfig={sortConfig} />
+
           <tbody>
             {data.length > 0 &&
               data.map((el) => (
